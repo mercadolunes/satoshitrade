@@ -1,0 +1,44 @@
+.td1 {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 15px;
+    color: #34395e;
+}
+
+.text1 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #34395e;
+}
+
+
+.card .card-header {
+    border-bottom-color: #e5e9f2;
+    line-height: 30px;
+    -ms-grid-row-align: center;
+    align-self: center;
+    width: 100%;
+    padding: 8px 25px;
+    display: flex;
+    align-items: center;
+}
+
+#color { 
+background-color: #162946;
+color: white;
+}
+
+.txtresumo{
+    color: #545454;
+}
+
+.status-pendente {
+
+    background: #286cf5;
+    color: white;
+    /* background: linear-gradient(135deg,#2fe3f7 100%,#286cf5 0%); */
+    
+}

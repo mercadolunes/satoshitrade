@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="trade-header">
+      <strong>Últimos 10 Pedidos - <%=dados.label %></strong>
+      <span class="fright"><a href="/historico/exchange/<%= dados.ticker %>">Histórico</a></span>
+
+  </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+
+              <th scope="col">Data</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Total R$</th>
+              <th scope="col">Cotação</th>
+              <th scope="col">Total  <%= dados.ticker %></th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+          
+          
+          <% orders.forEach(order =>{ %>
+            <tr>
+              <td><a href="/orders/<%=order.idtransaction%>"><%=order.idorder%></a></td>
+              <td><%=order.dataorder%></td>
+
+              <%if (order.tipoorder = 'buy') { %>
+                <!-- <td><span class="badge badge-success"><%=order.tipoorder%></span></td> -->
+                <td><span class="badge badge-success">Compra</span></td>
+              <% } %>
+
+
+
+              <td><%= order.totalfiat %></td>
+              <td><%= order.cota %></td>
+              <td><%=order.totalcoin%></td>
+
+
+
+              <%if (order.status = 'pendente') { %>
+                <!-- <td><span class="badge badge-success"><%=order.tipoorder%></span></td> -->
+                <td>Pendente</td>
+                <% } %>
+
+
+
+            </tr>
+
+
+
+
+
+
+          <%})  %>
+
+
+
+
+            
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>

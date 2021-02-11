@@ -1,0 +1,75 @@
+.sc-cwixnI + .sc-cwixnI{
+    border-top: 2px solid rgb(232, 232, 232);
+}
+.balance{
+    margin: 0px 20px 0px 20px;
+}
+
+title-balance{
+    display: block;
+    padding: 10px 0px !important;
+    letter-spacing: .05em;
+    pointer-events: none;
+    cursor: default;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #8590a5;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    opacity: .5; 
+
+}
+
+div-coin{
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 5px 0px;
+}
+
+label-title{
+
+}
+label-balance{
+
+}
+
+
+
+saldo-coin{
+    display: block;
+    padding: 1px 20px !important;
+    letter-spacing: .05em;
+    pointer-events: none;
+    cursor: default;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #505d69;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    opacity: .5; 
+    
+}
+
+
+saldo-coin img{
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 24px;
+    width: 24px;
+    background-color: #f1f5f7;
+    padding: 1px;
+    border-radius: 50%!important;
+}
+.span-lbl-coin{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; 
+}

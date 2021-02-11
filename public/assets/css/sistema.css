@@ -1,0 +1,83 @@
+
+@import "exchange.css";
+
+
+
+
+:root{
+--preto: black;
+--color-price-buy: #16c784;
+--color-price-sell:#ea3943;
+
+}
+.ch{
+    border: 1px #ced4da solid;
+}
+
+tcoin{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+tordens{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.tsaldo{
+    text-transform: uppercase;
+    text-align: center!important;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-price-buy);
+
+}
+
+.size-cripto{
+    height: 32px;
+    width: 32px;
+    background-color: #f1f5f7;
+    padding: 3px;
+    border-radius: 50%!important;
+}
+
+.size-giftcard{
+    height: 128px;
+    width: 128px;
+    /* padding: 3px;
+    border-radius: 50%!important;
+    background-color: #f1f5f7; */
+
+}
+
+
+.card-buy-cripto{
+    border-bottom: 2px #23BF08 solid;
+}
+.card-sell-cripto{
+    border-bottom: 2px #dc3545 solid;
+}
+
+.card-market{
+    border-bottom: 2px orange solid;
+    font-weight: bold;
+
+}
+
+
+.card-saque{
+    border-bottom: 2px #064855 solid;
+    font-weight: bold;
+
+}
+
+.card-orders{
+    border-bottom: 2px #068FCF solid;
+    font-weight: bold;
+
+}
+
+.table-market td, .table-market th {
+    padding: .1rem;
+}
+

@@ -1,0 +1,60 @@
+<div class="card "> 
+  <div class="trade-header">
+      <strong>Comprar <%=dados.label %></strong>
+  </div>
+
+  <div class="card-body">
+      <form  class="needs-validation"  method="POST">
+
+
+          <div class="row">
+       
+            <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="validationCustom01">Cotação</label>
+                      <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1"  id="cota" name="cota" onblur="calculacota()" readonly>
+                  </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="validationCustom01">Tempo</label><br>
+                    <span class="h3" id="time">01:00</span>                
+                </div>
+            </div>
+
+
+
+          </div>
+          
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="validationCustom01">Você paga</label>
+                      <input type="text" class="form-control" placeholder="" id="totalbrl" name="totalbrl" value="25" onblur="calculacota()" step="1">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="validationCustom02">Recebe em <%=dados.ticker %></label>
+                      <input type="text" class="form-control" placeholder="" id="totalcoin" name="totalcoin" value="" onblur="calculacota()" readonly>
+
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="validationCustom01">PIN</label>
+                      <input type="password" class="form-control" placeholder="" id="bpin" name="pin" value="1234" onblur="calculacota()">
+                  </div>
+              </div>
+              
+          </div>
+
+          <button class="btn btn-dark btn-block" type="submit">Comprar <%=dados.ticker %></button>
+      </form>
+  </div>
+
+</div>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <!-- BOOTSTRAP CDN -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap-notify.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container p-5">
+        <div class="card">
+            <h2>painel admin</h2>
+            <div class="card-body">
+                <h1>Olá,<%= user %></h1>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+
+            <% if (message.info) { %>
+            <script>
+                  $.notify({
+                title: "SUCESSO : ",
+                message: "Dados salvos com sucesso!",
+                icon: 'fa fa-check'
+            }, {
+                type: "success"
+            });
+            </script>
+            <% } %>
+            <div class="row" style="margin-bottom: 2rem;">
+                <div class="col-lg-10">
+                    <h3>Tabs</h3>
+                    <div class="bs-component">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#config">Configurações</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link active show" data-toggle="tab"
+                                    href="#exemplo">Exemplo</a></li>
+
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+
+                            <div class="tab-pane fade active  show" id="config">
+                                <form method="POST" action="/configOTP">
+                                    <fieldset class="form-group pl-4">
+                                        <legend>Configurações 2FA</legend>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="optionsRadios1" type="radio"
+                                                    name="optionsRadios" value="option1">Ativar 2FA
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="optionsRadios2" type="radio"
+                                                    name="optionsRadios" checked="" value="option2">Desativa 2FA
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-success mt-2">Salvar</button>
+                                    </fieldset>
+
+                                </form>
+                            </div>
+
+
+                            <div class="tab-pane fade " id="exemplo">
+                                <p> page exemplo
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    
+    <script>
+        $('#demoNotify').click(function () {
+            $.notify({
+                title: "SUCESSO : ",
+                message: "Dados salvos com sucesso!",
+                icon: 'fa fa-check'
+            }, {
+                type: "success"
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+
+  <script src="/assets/js/app.min.js"></script>
+  <script src="/assets/js/scripts.js"></script>
+  <script type="text/javascript">
+    document.getElementById("cota").value = '0'
+    document.getElementById("totalcoin").value = '0'
+
+
+    
+  </script>
+
+
+  <script type="text/javascript">
+
+
+
+    var url_atual = window.location.href;
+    var pegacoin = url_atual.split('/')
+    var tickercoin = pegacoin[4]
+    var cointicker = tickercoin.toUpperCase()
+    var marketticker = cointicker+'BRL'
+    // var url = `https://api.binance.com/api/v3/ticker/24hr?symbol=${marketticker}`
+    var url = `https://satoshitrade.com.br/${tickercoin}/`
+    
+    $.getJSON(url, function(data){
+      var resultado = data.vendemos
+      document.getElementById("cota").value = parseFloat(resultado).toFixed(2)
+    })
+  
+
+
+  </script>
+
+
+
+
+
+
+  <script type="text/javascript">
+
+    var url_atual = window.location.href;
+    var pegacoin = url_atual.split('/')
+    var tickercoin = pegacoin[4]
+    var cointicker = tickercoin.toUpperCase()
+    var url = `https://satoshitrade.com.br/${tickercoin}/`
+
+        
+            setInterval(function() {
+            $.getJSON(url, function(data){
+            var resultado = data.vendemos
+            document.getElementById("cota").value = parseFloat(resultado).toFixed(2)
+    })
+            
+        }, 1000);
+
+    
+</script>
+
+
+
+
+
+
+
+
+<script>
+  function startTimer(duration, display) 
+  {
+    var timer = duration, minutes, seconds;
+      setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+  }
+
+  window.onload = function () 
+    {
+      var fiveMinutes = 60 * 5,//aqui é o tempo cronometrado em segundos
+          display = document.querySelector('#time');
+      startTimer(fiveMinutes, display);
+    };
+</script>
+
+<script>
+  $(document).ready(function(){
+ 
+    $("#totalbrl,#cota").keyup(function(){
+      var totalbrl = $("#totalbrl").val().replace(",",".");
+      
+      var pricecota = $("#cota").val();
+      var atualizacota  = pricecota.replace(",", ".")
+
+      var total = totalbrl / atualizacota;
+
+      var resultado = total.toFixed(8);
+      var frmresultado = resultado.replace(".", ",");
+      
+         $("#totalcoin").val(frmresultado);
+    })
+ 
+  });
+ </script>
+
+
+
+  
+</body>
+</html>

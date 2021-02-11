@@ -1,0 +1,73 @@
+.fright {
+    float: right;
+}
+#order {
+    color: #20a8d8;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+
+.trade-header {
+    padding: 5px 10px;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,0);
+    border-color: 1px solid #003759;
+    border-bottom: 1px dashed #003759;
+}
+.txt-negociar {
+    font-weight: bolder;
+    text-decoration: underline dotted blue;
+}
+.f-right {
+    font-weight: bolder;
+    color: #454d55;
+    float: right !important;
+}
+.table-mercado,
+ .table-mercado th,
+  .table-mercado td {
+    /* padding: 0.3rem;  */
+    padding: 1px; 
+    border-top: none;
+
+}
+
+.card-body-exchange {
+  min-height: 2px;
+  padding: 5px; 
+}
+
+.jss943{
+    max-width: 26px;
+    margin-right: 5px;
+}
+
+
+p balanceprice{
+    color: black;
+    font-size: 22px;
+    font-weight: bolder;
+
+}
+
+tickerlabel{
+    display: block;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+tickertotal{
+    color: black;
+    font-size: 22px;
+    font-weight: bolder;
+}
+
+tickerprice{
+    color: black;
+    font-size: 22px;
+    font-weight: bolder;
+}
+

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Login - Vali Admin</title>
+
+</head>
+
+<body>
+    <section class="material-half-bg">
+        <div class="cover"></div>
+    </section>
+    <section class="login-content">
+        <div class="logo">
+            <h1>SCSAPP</h1>
+        </div>
+
+        <% if (message.info) { %>
+        <div class="alert alert-<%= message.info[0].type %> alert-dismissible fade show" role="alert">
+            <strong><%= message.info[0].title %></strong> <%= message.info[0].msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <% } %>
+
+        <% if (otpActive) { %>
+        <div class="login-box" style="min-width: 570px;min-height: 640px;">
+            <% } %>
+            <% if (!otpActive) { %>
+            <div class="login-box" style="min-width: 570px;min-height: 440px;">
+                <% } %>
+
+
+                <form class="login-form" method="POST" action="/register">
+                    <input type="hidden" name="token" id="token" value="" />
+                    <input type="hidden" name="tokenvalid" id="tokenvalid" value="false" />
+                    <input type="hidden" name="urlotp" id="urlotp" value="" />
+                    <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Cadastro de usuário</h3>
+                    <div class="form-group">
+                        <label class="control-label">User Name:</label>
+                        <input class="form-control" name="username" id="username" type="text" placeholder="User Name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Email:</label>
+                        <input class="form-control" name="email" id="email" type="email" placeholder="Email" required>
+
+                        <% if (locals.email) { %> <small class="text-danger">
+                            <%= email.msg %></small> <% } %>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Senha:</label>
+                        <input class="form-control" name="password" id="password" type="password" placeholder="senha"
+                            required minlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">PIN Transação:</label>
+                        <input class="form-control" name="pin" id="pin" type="password" placeholder="senha"
+                            required minlength="6" maxlength="6">
+                    </div>
+
+
+                    <p class="text-center">
+                        <% if (otpActive) { %>
+                    <h5 class="text-center">Autenticação de 2FA</h5>A autenticação de dois fatores é obrigatoria para
+                    fazer login.
+                    por favor baixe um dos app abaixo
+                    </p>
+                    <p class="text-center"><a target="_black"
+                            href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=pt_BR">Google
+                            authenticator </a> <a target="_black"
+                            href="https://play.google.com/store/apps/details?id=com.authy.authy&hl=pt_BR"> Authy
+                            authenticator</a></p>
+                    <div class="form-group" style="text-align: center;">
+                        <button onclick="getFA();" type="button" id="btngeracode" class="btn btn-info">Gerar
+                            2FA</button>
+
+                    </div>
+                    <h5 id="chave2fa" hidden class="text-success"> </h5>
+                    <% } %>
+                    <div class="form-group btn-container">
+                        <button type="submit" class="btn btn-primary btn-block"><i
+                                class="fa fa-sign-in fa-lg fa-fw"></i>Cadastrar</button>
+                    </div>
+                    <div class="form-group mt-3">
+                        <p class="semibold-text mb-0"><a href="/"><i class="fa fa-angle-left fa-fw"></i>Volte ao
+                                login</a></p>
+                    </div>
+                </form>
+
+
+            </div>
+    </section>
+    <!-- Essential javascripts for application to work-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+
+        const getUrl = window.location;
+        function getFA() {
+            if ($("#email").val() == "") {
+                Swal.fire(
+                    'Campo vazio!',
+                    'o email está vazio é precisa digitar um email para gerar o código 2FA',
+                    'warning'
+                )
+                return
+            }
+            $('#QRCODE').attr("hidden", true);
+            let formData = {
+                email: $("#email").val()
+            };
+            if ($('#token').val() != '') {
+                tokenHasAlready(formData);
+            } else {
+                getToken();
+            }
+
+        }
+        function validarcode(code) {
+            /*
+            let formData = {
+                code: code,
+                secret: $("#token").val()
+            };
+*/
+            let formData = {
+                code: code,
+                secret: $("#secret").text()
+            };
+            console.log(formData);
+
+
+
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: getUrl.protocol + "//" + getUrl.host + "/verify2fa",
+                data: JSON.stringify(formData),
+                dataType: "json",
+                success: function (result) {
+                    console.log(result)
+                    if (result == null) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'o codigo: ' + code + ' é invalido!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(() => {
+                            tokenHasAlready();
+                        }, 1550);
+                        return
+                    }
+                    if (result == 0) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Autenticação de dois fatores foi validada com sucesso!, e está ativa',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        $('#btngerarcode').attr("disabled", true);
+                        $('#chave2fa').attr("hidden", false);
+                        $('#chave2fa').val(formData.secret);
+                        $('#tokenvalid').val("true");
+
+                    }
+
+                },
+                error: function (e) {
+
+                    console.log("ERROR: ", e);
+                }
+            });
+        }
+
+        function cad() {
+            let formData = {
+                user_name: $("#username").val(),
+                user_email: $("#email").val(),
+                user_pass: $("#password").val(),
+                token: $("#token").val()
+            };
+            console.log(formData)
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: getUrl.protocol + "//" + getUrl.host + "/register",
+                data: JSON.stringify(formData),
+                dataType: "json",
+                success: function (result) {
+                    console.log(result)
+                    if (result == 0) {
+
+                        $('#btncode').text('<i class="fa fa-check"></i>validação do código efetuada com sucesso!');
+                        $('#_code2fa').attr("disabled", true);
+                        $('#btncode').attr("disabled", true);
+                    } else {
+                        $('#chave2fa').text('a chave digitada está incorreta, por favor verifique  a chave no seu app')
+                    }
+
+                },
+                error: function (e) {
+
+                    console.log("ERROR: ", e);
+                }
+            });
+        }
+        $("#cad").click((event) => {
+            event.preventDefault();
+            cad();
+        });
+        function getToken(formData) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: getUrl.protocol + "//" + getUrl.host + "/get2fa",
+                data: JSON.stringify(formData),
+                dataType: "json",
+                success: (result) => {
+                    console.log(result)
+                    $('#token').val(result.secret)
+                    $('#urlotp').val(result.qr)
+                    if (token && urlotp != '') {
+                        Swal.fire({
+                            title: 'Autenticação de 2FA',
+                            confirmButtonText: 'Validar código 2fa',
+                            html:
+                                ' <img src="' + $('#urlotp').val() + '" id="qrcode" />' +
+                                '<h5 class="text-center">Seu código de recuperação</h5><p class="text-center" id="secret">' + $('#token').val() + '</p>' +
+                                '<input minlength="6" maxlength="6" id="code2fa" class="swal2-input" placeholder="Código 2FA" required>'
+
+
+                        }).then((re) => {
+                            console.log(re)
+                            let twofa = $('#code2fa').val();
+                            if (twofa) {
+                                validarcode(twofa);
+                            } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'campo vazio!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(() => {
+                                    this.tokenHasAlready();
+                                }, 1550);
+
+                            }
+                        })
+                    }
+
+                    // $('#qrcode').attr("src", result.qr);
+                    // $('#secret').text(result.secret);
+                    //$("#token").val(result.secret)
+                },
+                error: function (e) {
+
+                    console.log("ERROR: ", e);
+                }
+            });
+        }
+        function tokenHasAlready() {
+            let token = $('#token').val()
+            let imgurl = $('#urlotp').val()
+            if (token && imgurl != '') {
+                Swal.fire({
+                    title: 'Autenticação de 2FA',
+                    confirmButtonText: 'Validar código 2fa',
+                    html:
+                        ' <img src="' + $('#urlotp').val() + '" id="qrcode" />' +
+                        '<h5 class="text-center">Seu código de recuperação</h5><p class="text-center" id="secret">' + $('#token').val() + '</p>' +
+                        '<input minlength="6" maxlength="6" id="code2fa" max class="swal2-input" placeholder="Código 2FA" required>'
+
+
+                }).then((re) => {
+                    console.log(re)
+                    let twofa = $('#code2fa').val();
+                    if (twofa) {
+                        validarcode(twofa);
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'campo vazio!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(() => {
+                            this.tokenHasAlready();
+                        }, 1550);
+
+                    }
+                })
+            }
+        }
+    </script>
+
+</body>
+
+</html>
